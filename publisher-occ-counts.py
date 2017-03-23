@@ -15,6 +15,6 @@ with open('publisher.tsv', 'wb') as f:
     writer = csv.writer(f, csv.excel_tab)
     writer.writerow(("key", "title", "country", "occurrences"))
     for o in orgs:
-        org = json.load(urllib2.urlopen('{}organization/{}'.format(API, o.name)), object_hook=lambda d: namedtuple('Org', d.keys())(*d.values()))
-        writer.writerow((org.key, org.title.encode("utf-8"), org.country, o.count))
+        org = json.load(urllib2.urlopen('{}organization/{}'.format(API, o.name)), object_hook=lambda d: namedtuple('Org', d.keys())(*d.values()))        
+        writer.writerow((org.key, org.title.encode("utf-8"), getattr(org, 'country', ''), o.count))
 
